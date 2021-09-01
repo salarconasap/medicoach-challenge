@@ -1,0 +1,16 @@
+https://be-app-hiring-bixinf-test.apps.bi-x-ire.tftp.p1.openshiftapps.com/;user:admin;password:secret
+
+######
+GET https://be-app-hiring-bixinf-test.apps.bi-x-ire.tftp.p1.openshiftapps.com/api/v1.0/status HTTP/1.1
+
+######
+GET https://be-app-hiring-bixinf-test.apps.bi-x-ire.tftp.p1.openshiftapps.com/api/v1.0/image/<image> HTTP/1.1
+
+######
+POST https://be-app-hiring-bixinf-test.apps.bi-x-ire.tftp.p1.openshiftapps.com/api/v1.0/ranking HTTP/1.1
+Content-Type: application/json
+
+{
+    "picture": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAA.........."
+}
+######
