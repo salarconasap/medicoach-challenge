@@ -8,4 +8,5 @@ export const types = {
     uiRemoveError: 'Remove-Error',
     uiStartLoading: 'Start-loading',
     uiFinishLoading: 'Finish-loading',
+    clear: 'Clear'
 }

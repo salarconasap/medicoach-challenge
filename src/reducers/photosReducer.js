@@ -27,6 +27,15 @@ export const photosReducer = ( state = initialState, action ) => {
                 ...state,
                 img: action.payload
             }
+        case types.clear:
+            return {
+                ...state,
+                apiserver: null,
+                user: null,
+                password: null,
+                api_status: false,
+                img: null
+            }
         default:
             return state;
     }

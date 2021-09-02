@@ -15,21 +15,29 @@ function ThirdPage() {
   const handleUpload = async () => {
     setLoading(true);
     const resp_upload = await api.UploadImg(apiserver, img_preview, user, password);
-    setLoading(false);
-    if(resp_upload.status === 200){
-      dispatch(setImg(resp_upload?.data))
-    }
+    resp_upload.status === 200 && dispatch(setImg(resp_upload?.data)) && setLoading(false);
   }
 
-  return (
-    img_preview ?
-    <>
-      <CustomImg src={img_preview} />
-      { img ? <StatusImg /> : <CustomBtn onClick={handleUpload} disabled={ loading || img }>Upload</CustomBtn> }
-    </>
-    : 
-    <WebcamCapture getImg={setImg_preview} />
-  );
+  const handleReset = () => {
+    dispatch(setImg(null)) && setImg_preview(null);
+  }
+
+  if(img_preview && !img){
+    return  <>
+              <CustomImg src={ img_preview } />
+              <CustomBtn onClick={ handleUpload } disabled={ loading || img }>Upload</CustomBtn>
+              <CustomBtn onClick={ () => setImg_preview(null)} disabled={ loading || img }>Cancel</CustomBtn>
+            </>
+  }
+
+  if(img){ 
+    return  <>
+              <StatusImg />
+              <CustomBtn onClick={handleReset}>Take more pictures</CustomBtn>
+            </>
+  }
+
+  return ( <WebcamCapture getImg={setImg_preview} /> );
 }
 
 export default ThirdPage;
