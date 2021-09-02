@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useCallback} from 'react';
 import Webcam from "react-webcam";
 import { CustomBtn } from '../../../styles'
 import PropTypes from 'prop-types'
@@ -10,14 +10,13 @@ const videoConstraints = {
 };
 
 const WebcamCapture = ({ getImg }) => {
-const webcamRef = React.useRef(null);
+  const webcamRef = useRef(null);
 
-  const capture = React.useCallback(
-    () => {
+  const capture = useCallback(() => {
       const imageSrc = webcamRef.current.getScreenshot({width: 512, height: 512});
       getImg(imageSrc)
     },
-    [webcamRef]
+    [webcamRef, getImg]
   );
 
   return (
@@ -29,9 +28,9 @@ const webcamRef = React.useRef(null);
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
       />
-      <CustomBtn 
-        onClick={(e)=>{e.preventDefault();capture();}}
-      >Capture</CustomBtn>
+      <CustomBtn onClick={(e)=>{e.preventDefault();capture();}}>
+        Capture
+      </CustomBtn>
     </>
   );
 }

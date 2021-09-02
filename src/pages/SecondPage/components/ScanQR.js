@@ -1,6 +1,7 @@
 import React from 'react';
 import QrReader from 'react-web-qr-reader';
 import { QR_resp_to_Json } from '../../../helpers/parser';
+import PropTypes from 'prop-types'
 
 const ScanQR = ({ handleResult }) => {
   const delay = 500;
@@ -17,9 +18,7 @@ const ScanQR = ({ handleResult }) => {
     }
   };
 
-  const handleError = (error) => {
-    console.log(error);
-  };
+  const handleError = (error) => console.log(error);
 
   return (
       <QrReader
@@ -30,5 +29,9 @@ const ScanQR = ({ handleResult }) => {
       />
   );
 };
+
+ScanQR.propTypes = {
+  handleResult: PropTypes.func.isRequired
+}
 
 export default ScanQR;

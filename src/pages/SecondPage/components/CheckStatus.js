@@ -25,7 +25,7 @@ const CheckStatus = ({ server }) => {
 
 
 CheckStatus.propTypes = {
-  server: PropTypes.string
+  server: PropTypes.string.isRequired
 };
 
 CheckStatus.defaultProps = {

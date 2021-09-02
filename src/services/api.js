@@ -11,16 +11,15 @@ export const getStatus = (server) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       return 'off'
     });
 };
 
 export const UploadImg = (server, img, user, password) => {
-  console.log(server, img, user, password)
   return axios.post(`${server}api/v1.0/ranking`, 
-  {
-    picture: img
+  { 
+    picture: img 
   },{
     auth: {
       username: user,
@@ -28,11 +27,11 @@ export const UploadImg = (server, img, user, password) => {
     }
   })
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       return response;
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       return error;
     });
 };

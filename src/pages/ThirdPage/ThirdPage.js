@@ -6,7 +6,6 @@ import * as api from '../../services/api';
 import StatusImg from "./components/StatusImg";
 import { CustomImg, CustomBtn } from '../../styles'
 
-
 function ThirdPage() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false)
@@ -21,7 +20,6 @@ function ThirdPage() {
       dispatch(setImg(resp_upload?.data))
     }
   }
-
 
   return (
     img_preview ?
