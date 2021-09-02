@@ -5,6 +5,7 @@ import { setImg } from "../../actions/photosActions";
 import * as api from '../../services/api';
 import StatusImg from "./components/StatusImg";
 import { CustomImg, CustomBtn } from '../../styles'
+import Swal from "sweetalert2";
 
 function ThirdPage() {
   const dispatch = useDispatch();
@@ -15,7 +16,23 @@ function ThirdPage() {
   const handleUpload = async () => {
     setLoading(true);
     const resp_upload = await api.UploadImg(apiserver, img_preview, user, password);
-    resp_upload.status === 200 && dispatch(setImg(resp_upload?.data)) && setLoading(false);
+    if(resp_upload.status === 200){
+      dispatch(setImg(resp_upload?.data));
+      setLoading(false);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })
+    }
   }
 
   const handleReset = () => {
@@ -23,18 +40,21 @@ function ThirdPage() {
   }
 
   if(img_preview && !img){
-    return  <>
-              <CustomImg src={ img_preview } />
-              <CustomBtn onClick={ handleUpload } disabled={ loading || img }>Upload</CustomBtn>
-              <CustomBtn onClick={ () => setImg_preview(null)} disabled={ loading || img }>Cancel</CustomBtn>
-            </>
+    return(
+       <>
+        <CustomImg src={ img_preview } />
+        <CustomBtn onClick={ handleUpload } disabled={ loading || img }>Upload</CustomBtn>
+        <CustomBtn onClick={ () => setImg_preview(null)} disabled={ loading || img }>Cancel</CustomBtn>
+      </>)
   }
 
   if(img){ 
-    return  <>
-              <StatusImg />
-              <CustomBtn onClick={handleReset}>Take more pictures</CustomBtn>
-            </>
+    return(
+      <>
+        <StatusImg />
+        <CustomBtn onClick={handleReset}>Take more pictures</CustomBtn>
+      </>
+    )  
   }
 
   return ( <WebcamCapture getImg={setImg_preview} /> );
