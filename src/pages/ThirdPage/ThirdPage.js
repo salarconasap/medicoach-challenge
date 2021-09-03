@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setImg } from "../../actions/photosActions";
 import * as api from '../../services/api';
 import StatusImg from "./components/StatusImg";
-import { CustomImg, CustomBtn } from '../../styles'
-import Swal from "sweetalert2";
+import { CustomImg, CustomBtn } from '../../styles';
+import * as alerts from '../../alerts';
 
 function ThirdPage() {
   const dispatch = useDispatch();
@@ -18,26 +18,14 @@ function ThirdPage() {
     const resp_upload = await api.UploadImg(apiserver, img_preview, user, password);
     if(resp_upload.status === 200){
       dispatch(setImg(resp_upload?.data));
-      setLoading(false);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Your work has been saved',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      alerts.success();
     }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-      })
+      alerts.error();
     }
+    setLoading(false);
   }
 
-  const handleReset = () => {
-    dispatch(setImg(null)) && setImg_preview(null);
-  }
+  const handleReset = () => dispatch(setImg(null)) && setImg_preview(null);
 
   if(img_preview && !img){
     return(
